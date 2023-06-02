@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}About{% endblock %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>About Us</title>
+    <style>
+        body {
+            background-image: url("./static/about3.png");
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        .wrapper {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            width: 50%;
+            text-align: center;
+        }
+
+        .wrapper h1, .wrapper p {
+            color: #090909;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <h1>About Us</h1>
+        <p>Welcome to our website! We are a team dedicated to providing the best traject to distribute medications to your pharmacies</p>
+        <p>Our mission is to simplify the process of finding and accessing pharmacies, making it easier for you improve your logistic services.</p>
+        <p>At our website, you can search for optimale route with minimal cost.</p>
+        <p>Thank you for visiting our website. If you have any questions, suggestions, or feedback, please feel free to contact us.</p>
+    </div>
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+
+<style>
+    body {
+  margin: 0;
+  padding: 0;
+  background-image: url(./static/form.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #1B1452;
+}
+    
+    /* Form styles */
+    form {
+      max-width: 500px;
+      margin: 0 auto;
+      margin-top: 30vh;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-family: Arial, sans-serif;
+      background-color: #f7f7f7;
+    }
+  
+    label {
+      display: block;
+      margin-bottom: 10px;
+      color: #333;
+    }
+  
+    select {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-bottom: 15px;
+      color: #555;
+    }
+  
+    #intermediate-stops-container {
+      margin-bottom: 20px;
+    }
+  
+    .stop-label {
+      margin-right: 10px;
+    }
+  
+    /* Button styles */
+    button {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      margin-right: 10px;
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+  
+    button:hover {
+      background-color: #ccc;
+    }
+  
+    #add-stop-btn {
+      background-color: #4CAF50;
+      color: #fff;
+    }
+  
+    #clear-btn {
+      background-color: #f44336;
+      color: #fff;
+    }
+  
+    #submit-btn {
+      background-color: #008CBA;
+      color: #fff;
+    }
+  
+    #submit-btn:hover {
+      background-color: #006080;
+    }
+  </style>
+  
+  <form style="margin-bottom:200px" action="/map" method="POST">
+    <label for="first-stop">First Stop:</label>
+    <select id="first-stop" name="first-stop" required>
+      <option value="" selected disabled>Select a pharmacy</option>
+      {% for pharmacy in pharmacies %}
+        <option value="{{ pharmacy }}">{{ pharmacy }}</option>
+      {% endfor %}
+    </select>
+    <label for="final-stop">Final Stop:</label>
+    <select id="final-stop" name="final-stop" required>
+      <option value="" selected disabled>Select a pharmacy</option>
+      {% for pharmacy in pharmacies %}
+        <option value="{{ pharmacy }}">{{ pharmacy }}</option>
+      {% endfor %}
+    </select>
+
+    <div id="intermediate-stops-container">
+      <!-- Start with one input field for intermediate stop -->
+      <label class="stop-label" for="stop-2">Stop 2:</label>
+      <select id="stop-2" name="stop-2">
+        <option value="" selected disabled>Select a pharmacy</option>
+        {% for pharmacy in pharmacies %}
+          <option value="{{ pharmacy }}">{{ pharmacy }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <button type="button" id="add-stop-btn">Add Stop</button>
+    <button type="button" id="clear-btn">Clear</button>
+    <button type="submit" id="submit-btn">Submit</button>
+  </form>
+
+  <script>
+    const MAX_STOPS = 10;
+    const intermediateStopsContainer = document.getElementById('intermediate-stops-container');
+    const addStopBtn = document.getElementById('add-stop-btn');
+    const clearBtn = document.getElementById('clear-btn');
+    const submitBtn = document.getElementById('submit-btn');
+
+    let stopCount = 3; // start at Stop 2
+
+    addStopBtn.addEventListener('click', function() {
+      if (stopCount <= MAX_STOPS) {
+        const stopLabel = document.createElement('label');
+        stopLabel.setAttribute('for', 'stop-' + stopCount);
+        stopLabel.setAttribute('class', 'stop-label');
+        stopLabel.textContent = 'Stop ' + stopCount + ':';
+        intermediateStopsContainer.appendChild(stopLabel);
+
+        const stopSelect = document.createElement('select');
+        stopSelect.setAttribute('id', 'stop-' + stopCount);
+        stopSelect.setAttribute('name', 'stop-' + stopCount);
+        stopSelect.innerHTML = `
+          <option value="" selected disabled>Select a pharmacy</option>
+          {% for pharmacy in pharmacies %}
+            <option value="{{ pharmacy }}">{{ pharmacy }}</option>
+          {% endfor %}
+        `;
+        intermediateStopsContainer.appendChild(stopSelect);
+
+        stopCount++;
+      }
+    });
+
+    clearBtn.addEventListener('click', function() {
+      document.getElementById('first-stop').value = '';
+      document.getElementById('final-stop').value = '';
+      for (let i = 2; i <= MAX_STOPS; i++) {
+        const stopSelect = document.getElementById('stop-' + i);
+        if (stopSelect) {
+          stopSelect.value = '';
+        }
+      }
+    });
+  </script>
+{% endblock %}

@@ -1,0 +1,1 @@
+{"Pharmacie Al-Maghrib": [33.978053, -6.854125], "Pharmacie El Hamd": [33.979764, -6.85488], "Pharmacie Ibn Tofail": [33.981747, -6.86489], "Pharmacie Al-Balagh": [33.983874, -6.866063], "Pharmacie Al-Hikma": [33.986685, -6.872878], "Pharmacie Al-Khouloud": [33.991694, -6.878506], "Pharmacie Al-Firdaous": [33.993283, -6.878527], "Pharmacie Al-Manar": [33.993924, -6.881039]}
